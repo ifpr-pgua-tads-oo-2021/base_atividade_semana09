@@ -16,9 +16,22 @@
 
       <VBox>
          <Label text="Produtos"/>
-         <ListView fx:id="lstProdutos" />
+         <ListView fx:id="lstProdutos" onMouseClicked="#atualizarRemoverProduto"/>
          <Label fx:id="lbListaVaziaProdutos" text="Lista Vazia!!" visible="false"/>
       </VBox>
-      
+
+      <VBox>
+         <Label text="Vendas"/>
+         <TableView fx:id="tbVendas">
+            <columns>
+               <TableColumn text="Id" fx:id="tbcIdVenda"/>
+               <TableColumn text="Data" fx:id="tbcDataVenda"/>
+               <TableColumn text="Cliente" fx:id="tbcClienteVenda"/>
+               <TableColumn text="Total (R$)" fx:id="tbcTotalVenda"/>
+               
+            </columns>
+         </TableView>
+         <Label fx:id="lbTotalVendas" text="Total Vendas R$ 0.0"/> 
+      </VBox>
    </children>
 </FlowPane>

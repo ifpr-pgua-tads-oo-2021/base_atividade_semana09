@@ -60,7 +60,7 @@ public class Produto {
     }
 
     public String toString(){
-        return this.nome;
+        return "("+id+")"+this.nome;
     }
     
     

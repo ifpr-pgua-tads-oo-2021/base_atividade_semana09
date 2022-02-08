@@ -63,4 +63,8 @@ public class RepositorioVendas {
         return lista;
     }
 
+    public double totalVendas() throws Exception{
+        return vendaDAO.totalVendas();
+    }
+
 }

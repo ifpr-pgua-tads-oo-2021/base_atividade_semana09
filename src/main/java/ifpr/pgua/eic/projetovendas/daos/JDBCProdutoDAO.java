@@ -52,14 +52,44 @@ public class JDBCProdutoDAO implements ProdutoDAO {
 
     @Override
     public boolean atualizar(int id, Produto p) throws Exception {
-        // TODO Auto-generated method stub
-        return false;
+        
+        Connection con = fabricaConexoes.getConnection();
+
+        String sql = "UPDATE produtos SET nome=?,descricao=?,quantidadeEstoque=?,valor=? WHERE id=?";
+        
+        PreparedStatement pstmt = con.prepareStatement(sql);
+
+        pstmt.setString(1,p.getNome());
+        pstmt.setString(2,p.getDescricao());
+        pstmt.setInt(3, p.getQuantidadeEstoque());
+        pstmt.setDouble(4, p.getValor());
+        pstmt.setInt(5,id);
+
+        pstmt.execute();
+
+        pstmt.close();
+        con.close();
+
+        return true;
     }
 
     @Override
     public boolean remover(Produto p) throws Exception {
-        // TODO Auto-generated method stub
-        return false;
+        
+        Connection con = fabricaConexoes.getConnection();
+
+        String sql = "UPDATE produtos SET ativo=0 WHERE id=?";
+
+        PreparedStatement pstmt = con.prepareStatement(sql);
+
+        pstmt.setInt(1,p.getId());
+
+        pstmt.execute();
+
+        pstmt.close();
+        con.close();
+
+        return true;
     }
 
     private Produto montarProduto(ResultSet rs) throws Exception{
@@ -81,7 +111,7 @@ public class JDBCProdutoDAO implements ProdutoDAO {
         
         Connection con = fabricaConexoes.getConnection();
         
-        String sql = "SELECT * FROM produtos";
+        String sql = "SELECT * FROM produtos WHERE ativo=1";
         
         PreparedStatement pstmt = con.prepareStatement(sql);
 

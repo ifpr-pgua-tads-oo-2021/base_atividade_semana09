@@ -2,9 +2,11 @@ package ifpr.pgua.eic.projetovendas.telas;
 
 import java.sql.SQLException;
 
+import ifpr.pgua.eic.projetovendas.models.Produto;
 import ifpr.pgua.eic.projetovendas.repositorios.RepositorioProdutos;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 
@@ -22,11 +24,32 @@ public class CadastroProduto {
     @FXML
     private TextField tfValor;
 
+    @FXML
+    private Button btCadastrar;
+
 
     private RepositorioProdutos repositorio;
-
+    private Produto produtoAntigo = null;
+    
     public CadastroProduto(RepositorioProdutos repositorio){
+        this(null,repositorio);
+    }
+
+    public CadastroProduto(Produto produtoAntigo, RepositorioProdutos repositorio){
         this.repositorio = repositorio;
+        this.produtoAntigo = produtoAntigo;
+    }
+
+    @FXML
+    public void initialize(){
+        if(produtoAntigo != null){
+            tfNome.setText(produtoAntigo.getNome());
+            tfDescricao.setText(produtoAntigo.getDescricao());
+            tfQuantidadeEstoque.setText(""+produtoAntigo.getQuantidadeEstoque());
+            tfValor.setText(""+produtoAntigo.getValor());
+
+            btCadastrar.setText("Atualizar");
+        }
     }
 
     @FXML
@@ -69,7 +92,13 @@ public class CadastroProduto {
 
         if(!temErro){
             try{
-                boolean ret = repositorio.cadastrarProduto(nome, descricao, quantidadeEstoque, valor);
+                boolean ret = false;
+                if(produtoAntigo != null){
+                    ret = repositorio.atualizar(produtoAntigo.getId(), nome, descricao, quantidadeEstoque, valor);
+                }else{
+                    ret = repositorio.cadastrarProduto(nome, descricao, quantidadeEstoque, valor);
+                }
+                
                 if(ret){
                     msg = "Produto cadastrado com sucesso!";
                     limpar();
@@ -91,6 +120,7 @@ public class CadastroProduto {
         tfDescricao.clear();
         tfNome.clear();
         tfQuantidadeEstoque.clear();
+        tfValor.clear();
     }
 
 

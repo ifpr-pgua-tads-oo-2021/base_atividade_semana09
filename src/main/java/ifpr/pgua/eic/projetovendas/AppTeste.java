@@ -1,6 +1,7 @@
 package ifpr.pgua.eic.projetovendas;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import ifpr.pgua.eic.projetovendas.daos.JDBCPessoaDAO;
 import ifpr.pgua.eic.projetovendas.daos.JDBCProdutoDAO;
@@ -9,6 +10,7 @@ import ifpr.pgua.eic.projetovendas.daos.interfaces.PessoaDAO;
 import ifpr.pgua.eic.projetovendas.daos.interfaces.ProdutoDAO;
 import ifpr.pgua.eic.projetovendas.daos.interfaces.VendaDAO;
 import ifpr.pgua.eic.projetovendas.models.Pessoa;
+import ifpr.pgua.eic.projetovendas.models.Produto;
 import ifpr.pgua.eic.projetovendas.repositorios.RepositorioPessoas;
 import ifpr.pgua.eic.projetovendas.repositorios.RepositorioProdutos;
 import ifpr.pgua.eic.projetovendas.repositorios.RepositorioVendas;
@@ -23,18 +25,11 @@ public class AppTeste {
     public static void main(String[] args) throws Exception {
         FabricaConexoes fabricaConexoes = FabricaConexoes.getInstance();
 
-        PessoaDAO pessoaDAO = new JDBCPessoaDAO(fabricaConexoes);
-        ProdutoDAO produtoDAO = new JDBCProdutoDAO(fabricaConexoes);
-        VendaDAO vendaDAO = new JDBCVendaDAO(fabricaConexoes);
+        JDBCVendaDAO vendaDAO = new JDBCVendaDAO(fabricaConexoes);
 
-        RepositorioProdutos repositorio = new RepositorioProdutos(produtoDAO);
-        RepositorioPessoas repositorioPessoas = new RepositorioPessoas(pessoaDAO);
-        RepositorioVendas repositorioVendas = new RepositorioVendas(vendaDAO, pessoaDAO, produtoDAO);
-
+        System.out.println(vendaDAO.totalVendasPessoa(14));
         
-
-        System.out.println(repositorioVendas.listar());
-
+        
     }
 
 }

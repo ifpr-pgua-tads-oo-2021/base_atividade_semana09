@@ -25,7 +25,7 @@ public class Home {
     @FXML
     private void loadListas(){
         painelCentral.getChildren().clear();
-        painelCentral.getChildren().add(App.loadTela("fxml/listas.fxml", (o)->new Listas(repositorioPessoas,repositorioProdutos)));
+        painelCentral.getChildren().add(App.loadTela("fxml/listas.fxml", (o)->new Listas(repositorioPessoas,repositorioProdutos,repositorioVendas)));
     }
 
     @FXML

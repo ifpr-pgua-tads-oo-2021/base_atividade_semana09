@@ -1,10 +1,12 @@
 package ifpr.pgua.eic.projetovendas.daos;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.sql.Types;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -139,6 +141,47 @@ public class JDBCVendaDAO implements VendaDAO {
     public Venda buscar(int id) throws Exception {
         // TODO Auto-generated method stub
         return null;
+    }
+
+    @Override
+    public double totalVendas() throws Exception {
+        Connection con = fabricaConexoes.getConnection();
+
+        String sql = "CALL total_vendas(?)";
+
+        CallableStatement call = con.prepareCall(sql);
+
+        call.registerOutParameter(1, Types.REAL);
+
+        call.execute();
+
+        double totalVendas = call.getDouble(1);
+
+        call.close();
+        con.close();
+        
+        return totalVendas;
+    }
+
+    @Override
+    public double totalVendasPessoa(int idPessoa) throws Exception {
+        Connection con = fabricaConexoes.getConnection();
+
+        String sql = "CALL total_vendas_cliente(?,?)";
+
+        CallableStatement call = con.prepareCall(sql);
+
+        call.setInt(1,idPessoa);
+        call.registerOutParameter(2, Types.REAL);
+
+        call.execute();
+
+        double total = call.getDouble(2);
+
+        call.close();
+        con.close();
+
+        return total;
     }
     
 
