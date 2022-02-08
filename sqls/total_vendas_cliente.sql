@@ -1,5 +1,5 @@
 DELIMITER $$
-CREATE PROCEDURE total_vendas_cliente(IN idP INT, OUT total INT)
+CREATE PROCEDURE total_vendas_cliente(IN idP INT, OUT total REAL)
 BEGIN
 
     DECLARE totalVendas REAL DEFAULT 0;

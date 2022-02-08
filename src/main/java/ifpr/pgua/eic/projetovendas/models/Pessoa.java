@@ -12,7 +12,10 @@ public class Pessoa {
         this.setEmail(email);
         this.setTelefone(telefone);
     }
-    
+
+    public Pessoa(String nome, String email, String telefone){
+        this(-1, nome, email, telefone);
+    }
     
     public int getId() {
         return id;
@@ -24,9 +27,7 @@ public class Pessoa {
     }
 
 
-    public Pessoa(String nome, String email, String telefone){
-        this(-1, nome, email, telefone);
-    }
+
 
 
 

@@ -1,5 +1,5 @@
 DELIMITER $$
-CREATE PROCEDURE total_vendas(OUT total INT)
+CREATE PROCEDURE total_vendas(OUT total REAL)
 BEGIN
 
     DECLARE totalvendas REAL DEFAULT 0;
